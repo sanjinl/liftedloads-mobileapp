@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Payments</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	
+	<style type="text/css">
+		.centered {
+		  position: fixed;
+		  top: 50%;
+		  left: 50%;
+		  transform: translate(-50%, -50%);
+		}
+	</style>
+
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+    <script type="text/javascript" charset="utf-8">
+	
+
+	function getParameterByName(name, url) {
+		if (!url) url = window.location.href;
+		name = name.replace(/[\[\]]/g, "\\$&");
+		var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+			results = regex.exec(url);
+		if (!results) return null;
+		if (!results[2]) return '';
+		return decodeURIComponent(results[2].replace(/\+/g, " "));
+	}
+	
+    // Wait for device API libraries to load
+    //
+    document.addEventListener("deviceready", onDeviceReady, false);
+
+    // device APIs are available
+    //
+    function onDeviceReady() {
+		var url = getParameterByName('url');
+	
+		var ref = cordova.InAppBrowser.open(decodeURIComponent(url), '_blank', 'location=no,hardwareback=no');
+		
+		ref.addEventListener('loadstart', function(event) {
+			 if (event.url.match("mobile/close")) {
+				 ref.close();
+			 }
+		}); 
+		
+		ref.addEventListener('exit', exitCallBack);
+    }
+
+	function exitCallBack() {
+		history.back();
+	}
+	
+    </script>
+  </head>
+  <body>
+  
+	<div class="centered">Loading...</div>
+  
+  </body>
+</html>
