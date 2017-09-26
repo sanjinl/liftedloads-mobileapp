@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <widget xmlns   = "http://www.w3.org/ns/widgets"
-    xmlns:gap   = "http://phonegap.com/ns/1.0"
+    xmlns:android = "http://schemas.android.com/apk/res/android"
     id          = "com.liftedloads.app"
     versionCode = "10"
     version     = "1.0.0" >
@@ -31,6 +31,19 @@
       <preference name="android-minSdkVersion" value="14" />
       <allow-intent href="market:*" />
   </platform>
+  
+  <config-file platform="android" parent="/manifest" mode="merge">
+	<supports-screens android:anyDensity="true" android:largeScreens="true" android:normalScreens="true" android:resizeable="true" android:smallScreens="true" android:xlargeScreens="true" />
+	<application android:hardwareAccelerated="true" android:icon="@mipmap/icon" android:label="@string/app_name" android:supportsRtl="true">
+        <activity android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale" android:label="@string/activity_name" android:launchMode="singleTop" android:name="MainActivity" android:theme="@android:style/Theme.DeviceDefault.NoActionBar" android:windowSoftInputMode="adjustResize">
+            <intent-filter android:label="@string/launcher_name">
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+	<uses-sdk android:minSdkVersion="14" android:targetSdkVersion="25" />
+  </config-file>
   
   <engine name="android" spec="^6.2.3" />
   <engine name="browser" spec="^4.1.0" />
