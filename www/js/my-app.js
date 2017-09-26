@@ -276,7 +276,7 @@ $$(document).on('pageInit', function (e) {
 	if (page.name === 'payment') {
 		var url = e.detail.page.query.url;
 	
-		var ref = cordova.InAppBrowser.open(decodeURIComponent(url), '_blank', 'location=no,hardwareback=no,allowInlineMediaPlayback=yes');
+		var ref = cordova.InAppBrowser.open(decodeURIComponent(url), '_blank', 'location=no,hardwareback=no');
     }
 	
 	if (page.name === 'index') {		
