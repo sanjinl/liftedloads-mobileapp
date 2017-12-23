@@ -205,7 +205,7 @@ function constructProjectList(field)
 	output += '</div>';
 	output += '<div class="item-after"></div>';
 	output += '</div>';
-	output += '<div class="item-subtitle">' + field.Highlights + '</div>';
+	output += '<div class="item-subtitle">' + field.Content.substring(0, 100) + '...</div>';
 	output += '<div class="item-subtitle">' + field.Currency + field.Given + ' given';
 	if (field.DaysLeft != 'all') {
 		output += ', ' + field.DaysLeft + ' to go';
@@ -239,7 +239,10 @@ function constructProjectCard(field)
 	output += '<p class="color-gray" style="font-size: 8px">Posted ' + field.CreationDate + ' | Expires ' + field.Expiry +'</p>';
 	output += '<p><center>' + field.Currency + field.Given + ' given ' + giftaidtext + ' out of ' + field.Currency + field.Goal + ' required</center></p>';
 	output += '<div class="progressbar color-blue" data-progress="' + Math.min(Math.round((field.Given/field.Goal)*100), 100) + '"><span style="transform: translate3d(' + Math.min(Math.round((field.Given/field.Goal)*100 - 100), 0) + '%, 0px, 0px);"></span></div>';
+	output += '<p>Description:</p>';
 	output += '<p>' + field.Content + '</p>';
+	output += '<p>Highlights:</p>';
+	output += '<p>' + field.Highlights + '</p>';
 	output += '</div>';
 	output += '</div>';
 	output += '<p>Give:</p>';
