@@ -243,9 +243,9 @@ function constructProjectCard(field)
 	output += '<p>' + field.Content + '</p>';
 	output += '<p><strong>Highlights</strong></p>';
 	output += '<p>' + field.Highlights + '</p>';
-	output += '</div>';
-	output += '</div>';
 	output += '<p><strong>Give</strong></p>';
+	output += '</div>';
+	output += '</div>';
 	output += '<p class="buttons-row"><a href="payment.html?url=' + encodeURIComponent(donationUrl + '&amount=5') +'" class="button button-big button-raised external">' + field.Currency + '5</a><a href="payment.html?url=' + encodeURIComponent(donationUrl + '&amount=10') +'" class="button button-big button-raised external">' + field.Currency + '10</a><a href="payment.html?url=' + encodeURIComponent(donationUrl + '&amount=20') +'" class="button button-big button-raised external">' + field.Currency + '20</a></p>';
 	output += '<p class="buttons-row"><a href="payment.html?url=' + encodeURIComponent(donationUrl + '&amount=30') +'" class="button button-big button-raised external">' + field.Currency + '30</a><a href="payment.html?url=' + encodeURIComponent(donationUrl + '&amount=50') +'" class="button button-big button-raised external">' + field.Currency + '50</a><a href="payment.html?url=' + encodeURIComponent(donationUrl + '&amount=100') +'" class="button button-big button-raised external">' + field.Currency + '100</a></p>';
 
