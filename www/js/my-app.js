@@ -239,13 +239,13 @@ function constructProjectCard(field)
 	output += '<p class="color-gray" style="font-size: 8px">Posted ' + field.CreationDate + ' | Expires ' + field.Expiry +'</p>';
 	output += '<p><center>' + field.Currency + field.Given + ' given ' + giftaidtext + ' out of ' + field.Currency + field.Goal + ' required</center></p>';
 	output += '<div class="progressbar color-blue" data-progress="' + Math.min(Math.round((field.Given/field.Goal)*100), 100) + '"><span style="transform: translate3d(' + Math.min(Math.round((field.Given/field.Goal)*100 - 100), 0) + '%, 0px, 0px);"></span></div>';
-	output += '<p>Description:</p>';
+	output += '<p><strong>Description</strong></p>';
 	output += '<p>' + field.Content + '</p>';
-	output += '<p>Highlights:</p>';
+	output += '<p><strong>Highlights</strong></p>';
 	output += '<p>' + field.Highlights + '</p>';
 	output += '</div>';
 	output += '</div>';
-	output += '<p>Give:</p>';
+	output += '<p><strong>Give</strong></p>';
 	output += '<p class="buttons-row"><a href="payment.html?url=' + encodeURIComponent(donationUrl + '&amount=5') +'" class="button button-big button-raised external">' + field.Currency + '5</a><a href="payment.html?url=' + encodeURIComponent(donationUrl + '&amount=10') +'" class="button button-big button-raised external">' + field.Currency + '10</a><a href="payment.html?url=' + encodeURIComponent(donationUrl + '&amount=20') +'" class="button button-big button-raised external">' + field.Currency + '20</a></p>';
 	output += '<p class="buttons-row"><a href="payment.html?url=' + encodeURIComponent(donationUrl + '&amount=30') +'" class="button button-big button-raised external">' + field.Currency + '30</a><a href="payment.html?url=' + encodeURIComponent(donationUrl + '&amount=50') +'" class="button button-big button-raised external">' + field.Currency + '50</a><a href="payment.html?url=' + encodeURIComponent(donationUrl + '&amount=100') +'" class="button button-big button-raised external">' + field.Currency + '100</a></p>';
 
