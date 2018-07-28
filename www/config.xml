@@ -42,7 +42,7 @@
             </intent-filter>
         </activity>
     </application>
-	<uses-sdk android:minSdkVersion="14" android:targetSdkVersion="25" />
+	<uses-sdk android:minSdkVersion="14" android:targetSdkVersion="26" />
   </config-file>
   
   <engine name="android" spec="^6.2.3" />
