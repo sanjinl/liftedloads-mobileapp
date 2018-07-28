@@ -184,8 +184,14 @@ function constructProjectList(field)
 {
 	var output = '';
 	var createDate = new Date(field.CreationDate);
+	var progressbar = '<div class="progressbar color-blue" data-progress="' + Math.min(Math.round((field.Given/field.Goal)*100), 100) + '"><span style="transform: translate3d(' + Math.min(Math.round((field.Given/field.Goal)*100 - 100), 0) + '%, 0px, 0px);"></span></div>';
 	var nowDate = new Date();
 	var threeDaysMilliseconds = 7 * 24 * 60 * 60 * 1000;
+
+	if (field.IsUnlimited)
+	{
+		progressbar = '<div class="progressbar-infinite color-blue" data-progress="100"><span style="transform: translate3d(0%, 0px, 0px);"></span></div>';
+	}
 	
 	output += '<ul>';
 	output += '<li>';
@@ -211,7 +217,7 @@ function constructProjectList(field)
 		output += ', ' + field.DaysLeft + ' to go';
 	}
 	output += '</div>';
-	output += '<div class="progressbar color-blue" data-progress="' + Math.min(Math.round((field.Given/field.Goal)*100), 100) + '"><span style="transform: translate3d(' + Math.min(Math.round((field.Given/field.Goal)*100 - 100), 0) + '%, 0px, 0px);"></span></div>';
+	output += progressbar;
 	output += '</div>';
 	output += '</a>';
 	output += '</li>';
@@ -224,6 +230,8 @@ function constructProjectCard(field)
 {
 	var output = '';
 	var giftaidtext = '';
+	var requiredtext = ' out of ' + field.Currency + field.Goal + ' required';
+	var progressbar = '<div class="progressbar color-blue" data-progress="' + Math.min(Math.round((field.Given/field.Goal)*100), 100) + '"><span style="transform: translate3d(' + Math.min(Math.round((field.Given/field.Goal)*100 - 100), 0) + '%, 0px, 0px);"></span></div>';
 	var totaldonations = Number(field.Given) + Number(field.GivenGiftAid);
 	
 	var donationUrl = 'https://' + field.Domain + '/paypalap?action=go&offer_id=' + field.ID;
@@ -233,12 +241,18 @@ function constructProjectCard(field)
 		giftaidtext = '(' + field.Currency + totaldonations + ' w/ Gift Aid)';
 	}
 	
+	if (field.IsUnlimited)
+	{
+		requiredtext = ' (no donation limit)';
+		progressbar = '<div class="progressbar-infinite color-blue" data-progress="100"><span style="transform: translate3d(0%, 0px, 0px);"></span></div>';
+	}
+	
 	output += '<div style="background-image:url(' + field.Image + '); height: 40vw; background-size: cover; background-position: center;" valign="bottom" class="card-header color-white no-border"></div>';
 	output += '<div class="card-content">';
 	output += '<div class="card-content-inner">';
 	output += '<p class="color-gray" style="font-size: 8px">Posted ' + field.CreationDate + ' | Expires ' + field.Expiry +'</p>';
-	output += '<p><center>' + field.Currency + field.Given + ' given ' + giftaidtext + ' out of ' + field.Currency + field.Goal + ' required</center></p>';
-	output += '<div class="progressbar color-blue" data-progress="' + Math.min(Math.round((field.Given/field.Goal)*100), 100) + '"><span style="transform: translate3d(' + Math.min(Math.round((field.Given/field.Goal)*100 - 100), 0) + '%, 0px, 0px);"></span></div>';
+	output += '<p><center>' + field.Currency + field.Given + ' given ' + giftaidtext + requiredtext + '</center></p>';
+	output += progressbar; 
 	output += '<p><strong>Description</strong></p>';
 	output += '<p>' + field.Content + '</p>';
 	output += '<p><strong>Highlights</strong></p>';
