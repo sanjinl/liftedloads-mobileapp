@@ -8,7 +8,7 @@ var devurl="https://dev.liftedloads.com/wp-json/liftedloads/v1/sites";
 var stagingurl="https://staging.liftedloads.com/wp-json/liftedloads/v1/sites";
 var produrl="https://liftedloads.com/wp-json/liftedloads/v1/sites";
 
-var url = produrl; //Change this parameter for testing and deployment
+var url = devurl; //Change this parameter for testing and deployment
 
 $$('.open-info').on('click', function () {
   myApp.pickerModal('.picker-info')
@@ -152,6 +152,21 @@ function displayProject(id)
 	});	 
 }
 
+// Get a Lifted Loads donation card
+function displayLiftedLoadsDonation(url)
+{
+	var output = '';
+	
+	jQuery.each(liftedLoads, function(i, field){
+		output += constructLiftedLoadsDonationCard(url, field);
+	});
+	
+	jQuery('#liftedloadsdonation-center-sliding-title').html("Add a Gift for Lifted Loads");  
+	jQuery('#liftedloadsdonation-card').html(output);  
+	
+	return;
+
+}
 
 function getURLParameter(name) {
   return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [null, ''])[1].replace(/\+/g, '%20')) || null;
@@ -260,8 +275,25 @@ function constructProjectCard(field)
 	output += '<p><strong>Give</strong></p>';
 	output += '</div>';
 	output += '</div>';
-	output += '<p class="buttons-row"><a href="payment.html?url=' + encodeURIComponent(donationUrl + '&amount=5') +'" class="button button-big button-raised external">' + field.Currency + '5</a><a href="payment.html?url=' + encodeURIComponent(donationUrl + '&amount=10') +'" class="button button-big button-raised external">' + field.Currency + '10</a><a href="payment.html?url=' + encodeURIComponent(donationUrl + '&amount=20') +'" class="button button-big button-raised external">' + field.Currency + '20</a></p>';
-	output += '<p class="buttons-row"><a href="payment.html?url=' + encodeURIComponent(donationUrl + '&amount=30') +'" class="button button-big button-raised external">' + field.Currency + '30</a><a href="payment.html?url=' + encodeURIComponent(donationUrl + '&amount=50') +'" class="button button-big button-raised external">' + field.Currency + '50</a><a href="payment.html?url=' + encodeURIComponent(donationUrl + '&amount=100') +'" class="button button-big button-raised external">' + field.Currency + '100</a></p>';
+	output += '<p class="buttons-row"><a href="liftedloadsdonation.html?url=' + encodeURIComponent(donationUrl + '&amount=5') +'" class="button button-big button-raised">' + field.Currency + '5</a><a href="liftedloadsdonation.html?url=' + encodeURIComponent(donationUrl + '&amount=10') +'" class="button button-big button-raised">' + field.Currency + '10</a><a href="liftedloadsdonation.html?url=' + encodeURIComponent(donationUrl + '&amount=20') +'" class="button button-big button-raised">' + field.Currency + '20</a></p>';
+	output += '<p class="buttons-row"><a href="liftedloadsdonation.html?url=' + encodeURIComponent(donationUrl + '&amount=30') +'" class="button button-big button-raised">' + field.Currency + '30</a><a href="liftedloadsdonation.html?url=' + encodeURIComponent(donationUrl + '&amount=50') +'" class="button button-big button-raised">' + field.Currency + '50</a><a href="liftedloadsdonation.html?url=' + encodeURIComponent(donationUrl + '&amount=100') +'" class="button button-big button-raised">' + field.Currency + '100</a></p>';
+
+	return output;
+}
+
+function constructLiftedLoadsDonationCard(url, field)
+{
+	var output = '';
+	
+	output += '<div style="background-image:url(img/background-small.jpg); height: 20vw; background-size: cover; background-position: center;" valign="bottom" class="card-header color-white no-border">Support Lifted Loads</div>';
+	output += '<div class="card-content">';
+	output += '<div class="card-content-inner">';
+	output += '<p>Lifted Loads is funded in large part through your donations. Please consider supporting us by adding a gift.</p>';
+	output += '</div>';
+	output += '</div>';
+	output += '<p class="buttons-row"><a href="payment.html?url=' + url + encodeURIComponent('&liftedloadsdonation=0') +'" class="button button-big button-raised external">' + field.currency + '0</a><a href="payment.html?url=' + url + encodeURIComponent('&liftedloadsdonation=1') +'" class="button button-big button-raised external">' + field.currency + '1</a><a href="payment.html?url=' + url + encodeURIComponent('&liftedloadsdonation=2') +'" class="button button-big button-raised external">' + field.currency + '2</a></p>';
+	output += '<p class="buttons-row"><a href="payment.html?url=' + url + encodeURIComponent('&liftedloadsdonation=5') +'" class="button button-big button-raised external">' + field.currency + '5</a><a href="payment.html?url=' + url + encodeURIComponent('&liftedloadsdonation=10') +'" class="button button-big button-raised external">' + field.currency + '10</a><a href="payment.html?url=' + url + encodeURIComponent('&liftedloadsdonation=20') +'" class="button button-big button-raised external">' + field.currency + '20</a></p>';
+	output += '<p class="buttons-row"><a href="payment.html?url=' + url + encodeURIComponent('&liftedloadsdonation=30') +'" class="button button-big button-raised external">' + field.currency + '30</a><a href="payment.html?url=' + url + encodeURIComponent('&liftedloadsdonation=50') +'" class="button button-big button-raised external">' + field.currency + '50</a><a href="payment.html?url=' + url + encodeURIComponent('&liftedloadsdonation=100') +'" class="button button-big button-raised external">' + field.currency + '100</a></p>';
 
 	return output;
 }
@@ -270,39 +302,49 @@ $$(document).on('pageInit', function (e) {
     // Get page data from event data
     var page = e.detail.page;
 	
-	if (page.name === 'projects') {
-		var id = e.detail.page.query.id;
-		
-		var projectSearchbar = myApp.searchbar('.searchbar-projects', {
-			searchList: '.project-list-block',
-			searchIn: '.item-title'
-		}); 
+	if (page.from !== 'left') { //avoid running the below code on Back button navigation
+	
+		if (page.name === 'projects') {
+			var id = e.detail.page.query.id;
 			
-		listProjects(id, false);
-		
-		promptDefault(id);
-    }
-	
-	if (page.name === 'project') {
-		var id = e.detail.page.query.id;
+			var projectSearchbar = myApp.searchbar('.searchbar-projects', {
+				searchList: '.project-list-block',
+				searchIn: '.item-title'
+			}); 
 				
-		displayProject(id);
-    }
-	
-	if (page.name === 'payment') {
-		var url = e.detail.page.query.url;
-	
-		var ref = cordova.InAppBrowser.open(decodeURIComponent(url), '_blank', 'location=no,hardwareback=no');
-    }
-	
-	if (page.name === 'index') {		
-		listSites(liftedLoads);
-    }
-	
-    if (page.name === 'about') {
-        // Following code will be executed for page with data-page attribute equal to "about"
-        //myApp.alert('Here comes About page');
-    }
+			listProjects(id, false);
+			
+			promptDefault(id);
+		}
+		
+		if (page.name === 'project') {
+			var id = e.detail.page.query.id;
+					
+			displayProject(id);
+		}
+		
+		if (page.name === 'liftedloadsdonation') {
+			var url = e.detail.page.query.url;
+					
+			displayLiftedLoadsDonation(url);
+		}	
+		
+		if (page.name === 'payment') {
+			var url = e.detail.page.query.url;
+		
+			var ref = cordova.InAppBrowser.open(decodeURIComponent(url), '_blank', 'location=no,hardwareback=no');
+		}
+		
+		if (page.name === 'index') {		
+			listSites(liftedLoads);
+		}
+		
+		if (page.name === 'about') {
+			// Following code will be executed for page with data-page attribute equal to "about"
+			//myApp.alert('Here comes About page');
+		}
+		
+	}
 	
 })
 
