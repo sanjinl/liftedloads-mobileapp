@@ -8,7 +8,7 @@ var devurl="https://dev.liftedloads.com/wp-json/liftedloads/v1/sites";
 var stagingurl="https://staging.liftedloads.com/wp-json/liftedloads/v1/sites";
 var produrl="https://liftedloads.com/wp-json/liftedloads/v1/sites";
 
-var url = devurl; //Change this parameter for testing and deployment
+var url = produrl; //Change this parameter for testing and deployment
 
 $$('.open-info').on('click', function () {
   myApp.pickerModal('.picker-info')
