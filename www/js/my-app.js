@@ -159,6 +159,7 @@ function displayLiftedLoadsDonation(url)
 	
 	jQuery.each(liftedLoads, function(i, field){
 		output += constructLiftedLoadsDonationCard(url, field);
+		return false;
 	});
 	
 	jQuery('#liftedloadsdonation-center-sliding-title').html("Add a Gift for Lifted Loads");  
@@ -302,49 +303,49 @@ $$(document).on('pageInit', function (e) {
     // Get page data from event data
     var page = e.detail.page;
 	
-	if (page.from !== 'left') { //avoid running the below code on Back button navigation
 	
-		if (page.name === 'projects') {
-			var id = e.detail.page.query.id;
+	if (page.name === 'projects') {
+		var id = e.detail.page.query.id;
+		
+		var projectSearchbar = myApp.searchbar('.searchbar-projects', {
+			searchList: '.project-list-block',
+			searchIn: '.item-title'
+		}); 
 			
-			var projectSearchbar = myApp.searchbar('.searchbar-projects', {
-				searchList: '.project-list-block',
-				searchIn: '.item-title'
-			}); 
-				
-			listProjects(id, false);
-			
+		listProjects(id, false);
+		
+		if (page.from !== 'left') { //avoid running the below code on Back button navigation
 			promptDefault(id);
 		}
-		
-		if (page.name === 'project') {
-			var id = e.detail.page.query.id;
-					
-			displayProject(id);
-		}
-		
-		if (page.name === 'liftedloadsdonation') {
-			var url = e.detail.page.query.url;
-					
-			displayLiftedLoadsDonation(url);
-		}	
-		
-		if (page.name === 'payment') {
-			var url = e.detail.page.query.url;
-		
-			var ref = cordova.InAppBrowser.open(decodeURIComponent(url), '_blank', 'location=no,hardwareback=no');
-		}
-		
-		if (page.name === 'index') {		
-			listSites(liftedLoads);
-		}
-		
-		if (page.name === 'about') {
-			// Following code will be executed for page with data-page attribute equal to "about"
-			//myApp.alert('Here comes About page');
-		}
-		
 	}
+	
+	if (page.name === 'project') {
+		var id = e.detail.page.query.id;
+				
+		displayProject(id);
+	}
+	
+	if (page.name === 'liftedloadsdonation') {
+		var url = e.detail.page.query.url;
+				
+		displayLiftedLoadsDonation(url);
+	}	
+	
+	if (page.name === 'payment') {
+		var url = e.detail.page.query.url;
+	
+		var ref = cordova.InAppBrowser.open(decodeURIComponent(url), '_blank', 'location=no,hardwareback=no');
+	}
+	
+	if (page.name === 'index') {		
+		listSites(liftedLoads);
+	}
+	
+	if (page.name === 'about') {
+		// Following code will be executed for page with data-page attribute equal to "about"
+		//myApp.alert('Here comes About page');
+	}
+		
 	
 })
 
