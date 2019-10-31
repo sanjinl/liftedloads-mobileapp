@@ -253,10 +253,10 @@ function constructProjectCard(field)
 	var donationUrl = 'https://' + field.Domain;
 	
 	if (field.PaymentMethod == 'Stripe Connect') {
-		var donationUrl .= '/stripe?action=go&offer_id=' + field.ID;
+		var donationUrl = donationUrl + '/stripe?action=go&offer_id=' + field.ID;
 	}
 	if (field.PaymentMethod == 'PayPal AP') {
-		var donationUrl .= '/paypalap?action=go&offer_id=' + field.ID;
+		var donationUrl = donationUrl + '/paypalap?action=go&offer_id=' + field.ID;
 	}
 
 	if (field.GivenGiftAid > 0)
