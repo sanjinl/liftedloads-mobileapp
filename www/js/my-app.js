@@ -8,7 +8,7 @@ var devurl="https://dev.liftedloads.com/wp-json/liftedloads/v1/sites";
 var stagingurl="https://staging.liftedloads.com/wp-json/liftedloads/v1/sites";
 var produrl="https://liftedloads.com/wp-json/liftedloads/v1/sites";
 
-var url = produrl; //Change this parameter for testing and deployment
+var url = devurl; //Change this parameter for testing and deployment
 
 $$('.open-info').on('click', function () {
   myApp.pickerModal('.picker-info')
@@ -250,7 +250,14 @@ function constructProjectCard(field)
 	var progressbar = '<div class="progressbar color-blue" data-progress="' + Math.min(Math.round((field.Given/field.Goal)*100), 100) + '"><span style="transform: translate3d(' + Math.min(Math.round((field.Given/field.Goal)*100 - 100), 0) + '%, 0px, 0px);"></span></div>';
 	var totaldonations = Number(field.Given) + Number(field.GivenGiftAid);
 	
-	var donationUrl = 'https://' + field.Domain + '/paypalap?action=go&offer_id=' + field.ID;
+	var donationUrl = 'https://' + field.Domain;
+	
+	if (field.PaymentMethod == 'Stripe Connect') {
+		var donationUrl .= '/stripe?action=go&offer_id=' + field.ID;
+	}
+	if (field.PaymentMethod == 'PayPal AP') {
+		var donationUrl .= '/paypalap?action=go&offer_id=' + field.ID;
+	}
 
 	if (field.GivenGiftAid > 0)
 	{
